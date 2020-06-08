@@ -12,4 +12,8 @@ app.post('/login', (req, res) => {
     console.log(req.);
 });
 
+
+
 app.listen(3000);
+
+console.log('application listening to port 3000');x
