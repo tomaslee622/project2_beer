@@ -7,6 +7,8 @@ const cookieSession = require('cookie-session');
 
 const app = express();
 
+const initializePassport = require('./utils/init-passport')(app);
+
 const googleAuth = require('./routes/auth/social-login/google-auth');
 
 // Configure the dotenv for secret information
@@ -15,9 +17,7 @@ require('dotenv').config();
 // Call the file to initialize the passport setup
 const passportSetup = require('./config/passport-setup');
 
-// initialize passport
-app.use(passport.initialize());
-app.use(passport.session());
+app.set('trust proxy', 1);
 
 // Use cookie to authenticate user
 app.use(
@@ -53,10 +53,11 @@ app.get('/', (req, res) => {
 
 // Testing if the user is logged in with cookies
 app.use('/secret', (req, res) => {
-    if (req.isAuthenticated()) {
-        res.render('secret');
+    console.log(req.session.passport);
+    if (req.session.passport === undefined) {
+        res.send('Unauthorized Access');
     }
-    res.send('Unauthorized Access');
+    res.render('secret');
 });
 
 app.listen(3000);
