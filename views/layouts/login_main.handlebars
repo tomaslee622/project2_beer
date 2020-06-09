@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://kit.fontawesome.com/324b0077c5.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="my-auto">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top text-uppercase border-bottom">
+            <!-- Navigation :fixed top  -->
+            <a class="navbar-brand ml-5 h1" href="#"><i class="fas fa-3x fa-beer"></i></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item nav-item active mr-5">
+                        <a class="nav-link" href="#"><i class="fab fa-3x fa-facebook-square"></i><span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active mr-5">
+                        <a class="nav-link" href="#"><i class="fab fa-3x fa-instagram"></i><span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active mr-5">
+                        <a class="nav-link" href="#"><i class="far fa-3x fa-user"></i><span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active mr-5">
+                        <a class="nav-link" href="#"><i class="fas fa-3x fa-shopping-cart"></i><span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- end of navbar -->
+
+    <section class="ad_login_section">
+        <!-- section css : margin ! -->
+        <div class="container mt-1 pt-1">
+            <div class="row">
+                <div class="col-sm-12 col-lg-4 promotion-col float-left bg-secondary rounded text-white">
+                    <div class="row mt-5 mx-auto">
+                        <div class="col text-center">Promotion</div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col text-center">
+                            <p class="text-center">1. buy up to $150 get free delievery </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col text-center">
+                            <p class="text-center">2. Share our promotion get 20% off</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col text-center">
+                            <p class="text-center">3. Follow our page</p>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+                <div class="col-sm-0 col-lg-2"></div>
+                {{!-- end of promotion section --}}
+                
+                {{{body}}}
+
+            </div>
+        </div>
+    </section>
+    <!-- end of promotion & login  -->
+
+    <footer class="my-5">
+        <div class="col">
+            <hr class="mt-5">
+        </div>
+
+        <div class="container bg-dark rounded my-auto">
+            <div class="row">
+                <div class="col mr-5 text-left footer_co_policy">
+                    <a href="#"> About us</a>
+                    <br>
+                    <a href="#"> Shipping Arrangement</a>
+                    <br>
+                    <a href="#"> Delivery Schedule</a>
+                    <br>
+                    <a href="#"> Privacy policy</a>
+                    <br>
+                    <a href="#"> Join us</a>
+                    <br>
+                </div>
+                <div class="col mr-5 text-left footer_message_us">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1" class="text-white">Message us</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {{!-- end of footer  --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
