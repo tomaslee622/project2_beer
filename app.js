@@ -1,10 +1,11 @@
 const express = require('express');
 const hb = require('express-handlebars');
-const app = express();
 const knexConfig = require('./config/knexfile')['development'];
 const knex = require('knex')(knexConfig);
 const passport = require('passport');
 const cookieSession = require('cookie-session');
+
+const app = express();
 
 const googleAuth = require('./routes/auth/social-login/google-auth');
 
@@ -16,7 +17,6 @@ const passportSetup = require('./config/passport-setup');
 
 // initialize passport
 app.use(passport.initialize());
-
 app.use(passport.session());
 
 // Use cookie to authenticate user
@@ -36,25 +36,28 @@ app.use(
 //     })
 //     .catch((err) => console.log(err));
 
+// Setting handlebars as view engine
 app.engine('handlebars', hb({ defaultLayout: 'login_main' }));
 app.set('view engine', 'handlebars');
 
+// Serving the public files
 app.use(express.static('public'));
 
+// Directing to Google authentication
 app.use('/auth', googleAuth);
 
+// Index display
 app.get('/', (req, res) => {
     res.render('login_input');
 });
 
+// Testing if the user is logged in with cookies
 app.use('/secret', (req, res) => {
     if (req.isAuthenticated()) {
         res.render('secret');
     }
     res.send('Unauthorized Access');
 });
-
-app.post('/login', (req, res) => {});
 
 app.listen(3000);
 console.log('application listening to port 3000');
