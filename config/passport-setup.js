@@ -8,6 +8,14 @@ passport.serializeUser((user, done) => {
     done(null, user);
 });
 
+// Failure message for local login
+// passport.authenticate('local', {
+//     failureFlash: 'Invalid username or password.',
+// });
+
+// Success message for local login
+// passport.authenticate('local', { successFlash: 'Welcome!' });
+
 passport.deserializeUser((user, done) => {
     console.log('User ' + user + ' has come back');
     done(null, user);
