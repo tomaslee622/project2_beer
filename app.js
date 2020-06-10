@@ -2,11 +2,17 @@ const express = require('express');
 const hb = require('express-handlebars');
 const knexConfig = require('./config/knexfile')['development'];
 const knex = require('knex')(knexConfig);
+const bodyParser = require('body-parser');
 const passport = require('passport');
 const app = express();
 
 // Local strategy setup
-const setupLocalPassport = require('./utils/local-passport')(app);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const setupLocalPassport = require('./utils/local-passport');
+setupLocalPassport(app);
 const session = require('express-session');
 const localRouter = require('./routes/routes')(express);
 

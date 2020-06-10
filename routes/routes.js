@@ -19,10 +19,14 @@ module.exports = (express) => {
         res.render('login_input');
     });
 
+    router.get('/success', (req, res) => {
+        res.send('You successfully logged in');
+    });
+
     router.post(
         '/login',
         passport.authenticate('local-login', {
-            successRedirect: '/',
+            successRedirect: '/success',
             failureRedirect: '/error',
         })
     );

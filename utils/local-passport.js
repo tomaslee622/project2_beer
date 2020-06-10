@@ -11,20 +11,16 @@ module.exports = (app) => {
     passport.use(
         'local-login',
         new LocalStrategy(async(email, password, done) => {
-            console.log('-1');
             try {
-                console.log('0');
                 let users = await knex('users').where({ email: email });
                 if (users.length == 0) {
-                    console.log('1');
                     return done(null, false, { message: 'Incorrect credentials.' });
                 }
                 let user = users[0];
                 if (user.password === password) {
-                    console.log('2');
+                    console.log('successful login');
                     return done(null, user);
                 } else {
-                    console.log('3');
                     return done(null, false, { message: 'Incorrect credentials.' });
                 }
             } catch (err) {
@@ -34,7 +30,6 @@ module.exports = (app) => {
     );
 
     passport.serializeUser((user, done) => {
-        console.log('HI');
         done(null, user.id);
     });
 
