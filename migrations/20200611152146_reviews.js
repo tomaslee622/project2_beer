@@ -6,8 +6,8 @@ exports.up = function(knex) {
         table.foreign('user_id').references('users.id');
         table.foreign('beer_id').references('beers.id');
         table.string('content').notNullable();
+        table.decimal('rating', 2, 1).notNullable();
         table.string('img_path');
-        table.decimal('rating', 2, 1);
         table.integer('upvote');
         table.integer('downvote');
     });

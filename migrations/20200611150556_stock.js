@@ -1,8 +1,9 @@
 exports.up = function(knex) {
     return knex.schema.createTable('stock', function(table) {
         table.increments();
-        table.string('brand').notNullable();
-        table.integer('stock').unsigned().notNullable();
+        table.integer('beer_id').unsigned().notNullable();
+        table.foreign('beer_id').references('beers.id');
+        table.integer('stock').notNullable();
     });
 };
 
