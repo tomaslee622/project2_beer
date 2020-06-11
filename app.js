@@ -4,6 +4,7 @@ const knexConfig = require('./knexfile')['development'];
 const knex = require('knex')(knexConfig);
 const bodyParser = require('body-parser');
 const passport = require('passport');
+
 const app = express();
 
 // Local strategy setup
