@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
-const knexConfig = require('../config/knexfile')['development'];
+const knexConfig = require('../knexfile')['development'];
 const knex = require('knex')(knexConfig);
 
 passport.serializeUser((user, done) => {

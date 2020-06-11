@@ -1,6 +1,6 @@
 const express = require('express');
 const hb = require('express-handlebars');
-const knexConfig = require('./config/knexfile')['development'];
+const knexConfig = require('./knexfile')['development'];
 const knex = require('knex')(knexConfig);
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -55,6 +55,7 @@ const passportSetup = require('./config/passport-setup');
 // Testing the connection to EC2
 let query = knex.select('*').from('users');
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
 query
     .then((data) => {
         console.log(data);

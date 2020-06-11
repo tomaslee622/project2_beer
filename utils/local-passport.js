@@ -1,7 +1,7 @@
 //passport.js
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const knexConfig = require('../config/knexfile')['development'];
+const knexConfig = require('../knexfile')['development'];
 const knex = require('knex')(knexConfig);
 
 module.exports = (app) => {
