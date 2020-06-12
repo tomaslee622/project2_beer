@@ -3,24 +3,29 @@ const passport = require('passport');
 module.exports = (express) => {
     const router = express.Router();
 
-    function isLoggedIn(req, res, next) {
+    const checkAuthenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
+            console.log(req.isAuthenticated());
             return next();
+        } else {
+            res.redirect('/');
+            console.log(req.isAuthenticated());
         }
+    };
 
-        res.redirect('/error'); // or redirect to '/signup'
-    }
+    const checkNotAuthenticated = (req, res, next) => {
+        if (req.isAuthenticated()) {
+            return res.redirect('/success');
+        }
+        return next();
+    };
 
-    router.get('/secret', isLoggedIn, (req, res) => {
-        res.send('Here you go, a secret');
-    });
-
-    router.get('/login', (req, res) => {
+    router.get('/', checkNotAuthenticated, (req, res) => {
         res.render('login_input');
     });
 
-    router.get('/success', (req, res) => {
-        res.send('You successfully logged in');
+    router.get('/success', checkAuthenticated, (req, res) => {
+        res.send('Hello, ' + req.user.email + ' you successfully logged in');
     });
 
     router.post(
@@ -32,7 +37,7 @@ module.exports = (express) => {
     );
 
     router.get('/error', (req, res) => {
-        res.send('You are not logged in!');
+        res.send('Opps, error!');
     });
 
     return router;

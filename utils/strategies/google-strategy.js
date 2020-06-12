@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
+const loginOrCreate = require('./loginOrCreate');
 
 passport.use(
     new GoogleStrategy({
@@ -8,28 +9,10 @@ passport.use(
             callbackURL: 'http://localhost:3000/auth/google/redirect',
         },
         function(accessToken, refreshToken, profile, done) {
-            // passport callback function
-            console.log(profile);
-            // console.log(profile.id, profile.emails[0].value);
-            return done(null, profile);
+            loginOrCreate(profile.emails[0].value, done, {
+                provider: 'google',
+                google_id: profile.id,
+            });
         }
     )
 );
-
-// const loginOrCreate = (email, done) => {
-//     let query = knex.select('*').from('users').where({ email: email });
-//     query
-//         .then((data) => {
-//             if (data.length == 1) {
-//                 console.log('User exists');
-//                 done(null, email);
-//             } else {
-//                 console.log('User does not exist');
-//                 done(null, email);
-//             }
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             done(err, email);
-//         });
-// };
