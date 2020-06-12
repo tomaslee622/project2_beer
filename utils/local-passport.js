@@ -5,9 +5,6 @@ const knexConfig = require('../knexfile')['development'];
 const knex = require('knex')(knexConfig);
 
 module.exports = (app) => {
-    app.use(passport.initialize());
-    app.use(passport.session());
-
     passport.use(
         'local-login',
         new LocalStrategy(async(email, password, done) => {
@@ -34,11 +31,11 @@ module.exports = (app) => {
     });
 
     passport.deserializeUser(async(id, done) => {
-        let users = await knex('users').where({ id: id });
-        if (users.length == 0) {
-            return done(new Error(`Wrong user id ${id}`));
-        }
-        let user = users[0];
-        return done(null, user);
+        // let users = await knex('users').where({ id: id });
+        // if (users.length == 0) {
+        //     return done(new Error(`Wrong user id ${id}`));
+        // }
+        // let user = users[0];
+        return done(null, id);
     });
 };

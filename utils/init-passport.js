@@ -1,8 +1,9 @@
 const passport = require('passport');
 
 module.exports = (app) => {
-    // app.use(passport.initialize());
-    // app.use(passport.session());
+    console.log('passport initilization finished');
+    app.use(passport.initialize());
+    app.use(passport.session());
 
     passport.serializeUser((user, done) => {
         console.log('Serializing ' + user);
@@ -13,6 +14,4 @@ module.exports = (app) => {
         console.log('Deserializing ' + user);
         done(null, user);
     });
-
-    // require('./strategies/facebook-strategy')(passport);
 };

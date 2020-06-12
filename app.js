@@ -7,8 +7,13 @@ const passport = require('passport');
 
 const app = express();
 
-// Local strategy setup
+// Google Strategy setup
+const googleSetup = require('./utils/strategies/google-strategy');
 
+// Facebook Strategy setup
+const facebookSetup = require('./utils/strategies/facebook-strategy');
+
+// Local strategy setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -16,9 +21,6 @@ const setupLocalPassport = require('./utils/local-passport');
 setupLocalPassport(app);
 const session = require('express-session');
 const localRouter = require('./routes/routes')(express);
-
-app.use(passport.initialize());
-app.use(passport.session());
 
 app.use(
     session({
@@ -32,34 +34,25 @@ app.use(
 app.use('/', localRouter);
 
 // The end of local strategy setup
-
 const initializePassport = require('./utils/init-passport')(app);
 
-const googleAuth = require('./routes/auth/social-login/google-auth');
+const googleAuth = require('./routes/OAuth/google-auth');
 
 // Configure the dotenv for secret information
 require('dotenv').config();
 
 // Call the file to initialize the passport setup
-const passportSetup = require('./config/passport-setup');
-
-// app.set('trust proxy', 1);
-
-// Use cookie to authenticate user
-// app.use(
-//     cookieSession({
-//         maxAge: 24 * 60 * 60 * 1000,
-//         keys: ['key'],
-//     })
-// );
+// const passportSetup = require('./config/passport-setup');
 
 // Testing the connection to EC2
 let query = knex.select('*').from('users');
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+// process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 query
     .then((data) => {
-        console.log(data);
+        if (data !== null) {
+            console.log('Database connected');
+        }
     })
     .catch((err) => console.log(err));
 
@@ -78,34 +71,11 @@ app.get('/', (req, res) => {
     res.render('login_input');
 });
 
-// Testing if the user is logged in with cookies
-// app.use('/secret', (req, res) => {
-//     console.log(req.session.passport);
-//     if (req.session.passport === undefined) {
-//         res.send('Unauthorized Access');
-//     }
-//     res.render('secret');
-// });
-
-// Below is the local strategy
-// app.post('/login', passport.authenticate('local'), function(req, res) {
-//     // If this function gets called, authentication was successful.
-//     // `req.user` contains the authenticated user.
-//     res.redirect('/users/' + req.user.username);
-// });
-
-// // Setting both success direct and failure direct
-// app.post(
-//     '/login',
-//     passport.authenticate('local', {
-//         successRedirect: '/secret',
-//         failureRedirect: '/',
-//         failureFlash: true,
-//     })
-// );
-
 app.listen(3000);
 console.log('application listening to port 3000');
 
 // Client ID 935755710417-6op4te8uoa5u563rgetv5rk72465pbuh.apps.googleusercontent.com
 // Client Secret xORIR3m8nf_qfEzGVP4KTPSE
+
+// FB app secret: 6d2add1a6dd86dd6b16e558edd19705f
+// FB app ID: 343538859963113

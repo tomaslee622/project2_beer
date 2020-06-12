@@ -1,18 +1,17 @@
-const FacebookStrategy = require('passport-facebook').Strategy;
-require('dotenv').config();
+const FacebookStrategy = require('passport-facebook');
 
-module.exports = (passport) => {
+module.exports = () => {
     passport.use(
         new FacebookStrategy({
-                clientID: process.env.FACEBOOK_ID,
-                clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+                clientID: '343538859963113',
+                clientSecret: '6d2add1a6dd86dd6b16e558edd19705f',
                 callbackURL: `/auth/facebook/callback`,
             },
-            (accessToken, refreshToken, profile, cb) => {
-                return cb(null, { profile: profile, accessToken: accessToken });
+            function(accessToken, refreshToken, profile, cb) {
+                User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+                    return cb(err, user);
+                });
             }
         )
     );
 };
-
-// Whole document is cloned from Sam's repository for reference only

@@ -21,35 +21,35 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-passport.use(
-    new GoogleStrategy({
-            // options for the google stratgegy
-            callbackURL: '/auth/google/redirect',
-            clientID: process.env.CLIENT_ID,
-            clientSecret: process.env.CLIENT_SECRET,
-        },
-        (accessToken, refreshToken, profile, done) => {
-            // passport callback function
-            console.log('Callback function is fired!');
-            // console.log(profile.id, profile.emails[0].value);
-            loginOrCreate(profile.emails[0].value, done);
-        }
-    )
-);
+// passport.use(
+//     new GoogleStrategy({
+//             // options for the google stratgegy
+//             callbackURL: '/auth/google/redirect',
+//             clientID: process.env.CLIENT_ID,
+//             clientSecret: process.env.CLIENT_SECRET,
+//         },
+//         (accessToken, refreshToken, profile, done) => {
+//             // passport callback function
+//             console.log('Callback function is fired!');
+//             // console.log(profile.id, profile.emails[0].value);
+//             return done(null, profile);
+//         }
+//     )
+// );
 
-const loginOrCreate = (email, done) => {
-    let query = knex.select('*').from('users').where({ email: email });
-    query
-        .then((data) => {
-            if (data.length == 1) {
-                console.log('User exists');
-                done(null, email);
-            } else {
-                console.log('User does not exist');
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            done(err, email);
-        });
-};
+// const loginOrCreate = (email, done) => {
+//     let query = knex.select('*').from('users').where({ email: email });
+//     query
+//         .then((data) => {
+//             if (data.length == 1) {
+//                 console.log('User exists');
+//                 done(null, email);
+//             } else {
+//                 console.log('User does not exist');
+//             }
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             done(err, email);
+//         });
+// };
