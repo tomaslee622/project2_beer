@@ -1,8 +1,10 @@
 const passport = require('passport');
+const bcrypt = require('bcrypt');
 
 module.exports = (express) => {
     const router = express.Router();
 
+    // Login checking function
     const checkAuthenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
             console.log(req.isAuthenticated());
@@ -12,7 +14,6 @@ module.exports = (express) => {
             console.log(req.isAuthenticated());
         }
     };
-
     const checkNotAuthenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
             return res.redirect('/success');
@@ -38,6 +39,24 @@ module.exports = (express) => {
 
     router.get('/error', (req, res) => {
         res.send('Opps, error!');
+    });
+
+    // Register handler
+    router.get('/register', checkNotAuthenticated, (req, res) => {
+        res.send('Register Page');
+    });
+
+    router.post('/register', async(req, res) => {
+        try {
+            const hashedPassword = await bcrypt.hash(req.body.password, 10);
+            user.push({
+                email: req.body.username,
+                password: hashedPassword,
+            });
+            res.redirect('/');
+        } catch {
+            res.redirect('/error');
+        }
     });
 
     return router;
