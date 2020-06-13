@@ -59,5 +59,10 @@ module.exports = (express) => {
         }
     });
 
+    router.delete('/logout', (req, res) => {
+        req.logOut();
+        res.redirect('/');
+    });
+
     return router;
 };
