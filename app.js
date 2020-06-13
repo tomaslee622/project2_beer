@@ -4,6 +4,9 @@ const knexConfig = require('./knexfile')['development'];
 const knex = require('knex')(knexConfig);
 const bodyParser = require('body-parser');
 
+// env configuration
+require('dotenv').config();
+
 const app = express();
 
 // 1. Baisc setup
@@ -50,7 +53,6 @@ app.use('/auth', facebookAuth);
 
 // Testing the connection to EC2
 let query = knex.select('*').from('users');
-
 query
     .then((data) => {
         if (data !== null) {
@@ -60,11 +62,5 @@ query
     })
     .catch((err) => console.log(err));
 
-app.listen(3000);
-console.log('application listening to port 3000');
-
-// Client ID 935755710417-6op4te8uoa5u563rgetv5rk72465pbuh.apps.googleusercontent.com
-// Client Secret xORIR3m8nf_qfEzGVP4KTPSE
-
-// FB app secret: 6d2add1a6dd86dd6b16e558edd19705f
-// FB app ID: 343538859963113
+app.listen(process.env.PORT);
+console.log('application listening to port ' + process.env.PORT);

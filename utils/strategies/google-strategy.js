@@ -2,10 +2,12 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require('passport');
 const loginOrCreate = require('./loginOrCreate');
 
+require('dotenv').config();
+
 passport.use(
     new GoogleStrategy({
-            clientID: '935755710417-6op4te8uoa5u563rgetv5rk72465pbuh.apps.googleusercontent.com',
-            clientSecret: 'xORIR3m8nf_qfEzGVP4KTPSE',
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
             callbackURL: 'http://localhost:3000/auth/google/redirect',
         },
         function(accessToken, refreshToken, profile, done) {
