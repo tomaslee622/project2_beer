@@ -4,6 +4,7 @@ exports.up = function(knex) {
         table.string('beer_name').notNullable();
         table.string('info');
         table.integer('price');
+        table.integer('volumn');
     });
 };
 
