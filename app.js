@@ -1,13 +1,10 @@
 const express = require('express');
 const hb = require('express-handlebars');
-const knexConfig = require('./knexfile')['development'];
-const knex = require('knex')(knexConfig);
 const bodyParser = require('body-parser');
+const app = express();
 
 // env configuration
 require('dotenv').config();
-
-const app = express();
 
 // 1. Baisc setup
 
@@ -50,17 +47,6 @@ app.use('/auth', googleAuth);
 
 // Directing to Facebook authentication
 app.use('/auth', facebookAuth);
-
-// Testing the connection to EC2
-let query = knex.select('*').from('users');
-query
-    .then((data) => {
-        if (data !== null) {
-            // console.log(data);
-            console.log('Database connected');
-        }
-    })
-    .catch((err) => console.log(err));
 
 app.listen(process.env.PORT);
 console.log('application listening to port ' + process.env.PORT);
