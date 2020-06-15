@@ -48,5 +48,10 @@ app.use('/auth', googleAuth);
 // Directing to Facebook authentication
 app.use('/auth', facebookAuth);
 
+// Testing the chart.js
+app.get('/chart', (req, res) => {
+    res.sendFile(__dirname + '/chart.html');
+});
+
 app.listen(process.env.PORT);
 console.log('application listening to port ' + process.env.PORT);

@@ -7,11 +7,9 @@ module.exports = (express) => {
     // Login checking function
     const checkAuthenticated = (req, res, next) => {
         if (req.isAuthenticated()) {
-            console.log(req.isAuthenticated());
             return next();
         } else {
             res.redirect('/');
-            console.log(req.isAuthenticated());
         }
     };
 
@@ -61,7 +59,7 @@ module.exports = (express) => {
         }
     });
 
-    router.delete('/logout', (req, res) => {
+    router.get('/logout', (req, res) => {
         req.logOut();
         res.redirect('/');
     });
