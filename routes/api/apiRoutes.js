@@ -1,22 +1,44 @@
 const knexConfig = require('../../knexfile')['development'];
 const knex = require('knex')(knexConfig);
 
+const getData = (target) => {
+    let query = knex(target).select();
+    return query.then((data) => {
+        return data;
+    });
+};
+
+const getProfile = (id) => {
+    let query = knex('users').select().where({ id: id });
+    return query.then((data) => {
+        return data;
+    });
+};
+
+const getReviews = (id) => {
+    let query = knex('reviews').select().where({ user_id: id });
+    return query.then((data) => {
+        return data;
+    });
+};
+
 module.exports = (express) => {
     const router = express.Router();
-    const getData = async(target) => {
-
-        let stock,
-
-            let query = await knex('stock').select();
-        query.then((data) => {
-            console.log(data);
-            stock = data;
-        });
-    };
 
     // TODO, only staff authentication can call it
-    router.get('/stock', (req, res) => {
-        res.send(stock);
+    router.get('/stock', async(req, res) => {
+        let data = await getData('stock');
+        res.send(data);
+    });
+
+    router.get('/profile', async(req, res) => {
+        if (req.user == undefined) {
+            res.send('You are not logged in');
+        } else if (req.user.id) {
+            let data = await getReviews(req.user.id);
+            console.log(data);
+            res.send(data);
+        }
     });
 
     return router;
