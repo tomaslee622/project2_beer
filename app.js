@@ -3,6 +3,9 @@ const hb = require('express-handlebars');
 const bodyParser = require('body-parser');
 const app = express();
 
+// Cross origin resource sharing - on your app server
+const cors = require('cors');
+
 // env configuration
 require('dotenv').config();
 
@@ -14,6 +17,7 @@ app.use(express.static('public'));
 // Body-parser for passport to work
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 // Setting handlebars as view engine
 app.engine('handlebars', hb({ defaultLayout: 'login_main' }));
@@ -52,6 +56,9 @@ app.use('/auth', facebookAuth);
 app.get('/chart', (req, res) => {
     res.sendFile(__dirname + '/chart.html');
 });
+
+const apiRoute = require('./routes/api/apiRoutes')(express);
+app.use('/data', apiRoute);
 
 app.listen(process.env.PORT);
 console.log('application listening to port ' + process.env.PORT);
