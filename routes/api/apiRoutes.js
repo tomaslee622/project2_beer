@@ -37,7 +37,9 @@ module.exports = (express) => {
         } else if (req.user.id) {
             let data = await getReviews(req.user.id);
             console.log(data);
-            res.send(data);
+            res.reder('', {
+                variblae: JSON.stringify(data),
+            });
         }
     });
 
